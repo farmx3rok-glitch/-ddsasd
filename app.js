@@ -390,14 +390,6 @@ function parseFileContent(content) {
 // PROCESSING - Call Backend
 // ============================================
 
-// FIX: Thêm wrapper function để xử lý onclick event đúng cách
-function handleGenerateClick(event, mode) {
-  event.preventDefault();
-  event.stopPropagation();
-  generateVariants(mode);
-  return false;
-}
-
 async function generateVariants(mode) {
   console.log("🚀 generateVariants called with mode:", mode);
   
@@ -697,20 +689,55 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Add event listener to generate custom button
-  const generateCustomBtn = document.getElementById("generateCustomBtn");
-  if (generateCustomBtn) {
-    generateCustomBtn.addEventListener("click", () => generateVariants("custom"));
+  // FIX: Add event listeners to generate buttons
+  const generateBasicBtn = document.getElementById("generateBasicBtn");
+  if (generateBasicBtn) {
+    generateBasicBtn.addEventListener("click", () => {
+      console.log("✅ Basic button clicked");
+      generateVariants("basic");
+    });
   }
 
-  // Add id to clear button if missing
+  const generateAdvBtn = document.getElementById("generateAdvBtn");
+  if (generateAdvBtn) {
+    generateAdvBtn.addEventListener("click", () => {
+      console.log("✅ Advanced button clicked");
+      generateVariants("advanced");
+    });
+  }
+
+  const generateCustomBtn = document.getElementById("generateCustomBtn");
+  if (generateCustomBtn) {
+    generateCustomBtn.addEventListener("click", () => {
+      console.log("✅ Custom button clicked");
+      generateVariants("custom");
+    });
+  }
+
+  // Add event listener to clear button
   const clearBtn = document.getElementById("clearBtn");
-  if (!clearBtn) {
-    const basicTab = document.getElementById("basic");
-    const clearBtnNew = document.querySelector('.tab-actions button[onclick="clearAll()"]');
-    if (clearBtnNew) {
-      clearBtnNew.id = "clearBtn";
-    }
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      console.log("✅ Clear button clicked");
+      clearAll();
+    });
+  }
+
+  // Add event listeners to download and copy buttons
+  const downloadBtn = document.getElementById("downloadBtn");
+  if (downloadBtn) {
+    downloadBtn.addEventListener("click", () => {
+      console.log("✅ Download button clicked");
+      downloadResults();
+    });
+  }
+
+  const copyBtn = document.getElementById("copyBtn");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      console.log("✅ Copy button clicked");
+      copyToClipboard();
+    });
   }
   
   console.log("✅ App initialized!");
