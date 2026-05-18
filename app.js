@@ -390,6 +390,14 @@ function parseFileContent(content) {
 // PROCESSING - Call Backend
 // ============================================
 
+// FIX: Thêm wrapper function để xử lý onclick event đúng cách
+function handleGenerateClick(event, mode) {
+  event.preventDefault();
+  event.stopPropagation();
+  generateVariants(mode);
+  return false;
+}
+
 async function generateVariants(mode) {
   console.log("🚀 generateVariants called with mode:", mode);
   
